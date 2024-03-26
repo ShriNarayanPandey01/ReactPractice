@@ -1,3 +1,5 @@
+In this project i have used Custome hooks to create this currency converter and i have also used certain api to fetch currency exchange rates
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
