@@ -1,55 +1,47 @@
-import React from 'react'
-import {Editor } from '@tinymce/tinymce-react';
-import {Controller } from 'react-hook-form';
+import React from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { Controller } from 'react-hook-form';
 
-
-export default function RTE({name, control, label, defaultValue =""}) {
+function RTE({ name, control, label, defaultValue = '' }) {
   return (
-    <div className='w-full'> 
-    {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
-
-    <Controller
-    name={name || "content"}
-    control={control}
-    render={({field: {onChange}}) => (
-        <Editor
-        apiKey='7dhqhf6okiru6xw6e6fzo9lqtagv8lqeju8iz0sesirem351'
-        initialValue={defaultValue}
-        init={{
-            initialValue: defaultValue,
-            height: 500,
-            menubar: true,
-            plugins: [
-                "image",
-                "advlist",
-                "autolink",
-                "lists",
-                "link",
-                "image",
-                "charmap",
-                "preview",
-                "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
-                "media",
-                "table",
-                "code",
-                "help",
-                "wordcount",
-                "anchor",
-            ],
-            toolbar:
-            "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
-        }}
-        onEditorChange={onChange}
-        />
-    )}
-    />
-
-     </div>
-  )
+    <div className='w-full mb-6'>
+      {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
+      <Controller
+        name={name || 'content'}
+        control={control}
+        defaultValue={defaultValue}
+        render={({ field: { onChange, value } }) => (
+          <ReactQuill
+            theme='snow'
+            value={value}
+            onChange={onChange}
+            modules={{
+              toolbar: [
+                [{ header: '1' }, { header: '2' }, { font: [] }],
+                [{ size: [] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [
+                  { list: 'ordered' },
+                  { list: 'bullet' },
+                  { indent: '-1' },
+                  { indent: '+1' },
+                ],
+                ['link', 'image', 'video'],
+                ['clean'],
+              ],
+            }}
+            formats={[
+              'header', 'font', 'size',
+              'bold', 'italic', 'underline', 'strike', 'blockquote',
+              'list', 'bullet', 'indent',
+              'link', 'image', 'video',
+            ]}
+          />
+        )}
+      />
+    </div>
+  );
 }
+
+export default RTE;

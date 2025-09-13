@@ -7,6 +7,7 @@ import Select from "./Select";
 import RTE from "./RTE";
 import AllPost from "./Pages/AllPost";
 import PostForm from "./Post-Form/PostForm";
+import Home from "./Pages/Home"
 export {
     Signup,
     Login,
@@ -16,5 +17,6 @@ export {
     RTE,
     Select,
     AllPost,
-    PostForm
+    PostForm,
+    Home
 }

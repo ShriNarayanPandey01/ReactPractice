@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import service from '../../Appwrite/Service';
 import PostCard from '../PostCard';
 import Container from '../Container';
 
-function AllPost() {
+function Home() {
     const [posts, setPosts] = useState([]);
-    const userData = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
         service.ListDoc([]).then((response) => {
-            if (response && userData) {
-                const userPosts = response.documents.filter(post => post.UserId === userData.$id);
-                setPosts(userPosts);
+            if (response) {
+                setPosts(response.documents);
             }
         });
-    }, [userData]);
+    }, []);
 
     return (
         <div className='w-full py-8 bg-gray-100'>
             <Container>
-                <h1 className='text-4xl font-bold text-center mb-8'>My Posts</h1>
+                <h1 className='text-4xl font-bold text-center mb-8'>Latest Posts</h1>
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                     {posts.map((post) => (
                         <div key={post.$id} className='p-2 transition-transform duration-200 ease-in-out transform hover:scale-105'>
@@ -33,4 +30,4 @@ function AllPost() {
     );
 }
 
-export default AllPost;
+export default Home;

@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import store from './Store/Store.js'
+import store from './Store/store.js'
 import { Provider } from 'react-redux'
-import { Login,Signup,AllPost,PostForm } from './components/index.js'
+import { Login,Signup,AllPost,PostForm,Home } from './components/index.js'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import Post from './components/Pages/Post.jsx'
 import EditPost from './components/Pages/EditPost.jsx'
@@ -13,10 +13,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-        // {
-        //     path: "/",
-        //     element: <Home />,
-        // },
+        {
+            path: "/",
+            element: <Home />,
+        },
         {
             path: "/login",
             element: (

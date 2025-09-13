@@ -1,25 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/Header/Header'
-import Login from './components/Authentication/Login'
-import Signup from './components/Authentication/Signup'
-import AllPost from './components/Pages/Allpost'
-import PostForm from './components/Post-Form/PostForm'
 import { Outlet } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import authService from './Appwrite/Auth'
+import { login, logout } from './Store/AuthSlice'
+import Footer from './components/Footer/Footer'
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+  const [loading, setLoading] = useState(true)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    authService.CurrentUser()
+    .then((userData)=>{
+      if (userData) {
+        dispatch(login({userData}))
+      } else {
+        dispatch(logout())
+      }
+    })
+    .finally(()=>setLoading(false))
+  },[])
+  return !loading ? (
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-100'>
       <div className='w-full block'>
         <Header />
         <main>
-        TODO:  <Outlet />
+         <Outlet />
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default App
